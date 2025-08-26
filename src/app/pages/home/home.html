@@ -1,0 +1,69 @@
+<div class="flex h-screen bg-gray-100">
+    <aside [class.w-64]="isSidebarOpen " [class.w-16]="!isSidebarOpen"
+        class="transition-all duration-300 bg-white shadow-md min-h-screen overflow-hidden">
+        <app-side-menubar [isSidebarOpen]="isSidebarOpen"></app-side-menubar>
+    </aside>
+    <div class="flex-1 flex flex-col">
+        <app-header (toggleSidebarEvent)="toggleSidebar()"></app-header>
+        <main class="p-6 overflow-y-auto">
+            <h1 class="text-lg font-semibold mb-4">E-commerce Dashboard</h1>
+            <div class="grid grid-cols-12 gap-6 mb-6">
+                <div class="col-span-8">
+                    <div class="p-4 my-5 bg-gray-700 rounded-lg shadow">
+                        <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-8 rounded-lg">
+                                <h2 class="text-lg text-white font-semibold mb-2">Welcome Rijobin 🎉</h2>
+                                <p class="text-gray-400 text-sm mb-3 font-semibold">
+                                    An ecommerce dashboard has just that purpose. It provides your ecommerce team with a
+                                    clear overview of key financial and website KPIs at any time.
+                                </p>
+                                <button class="p-2 bg-blue-500 text-white font-semibold text-xs rounded-lg">
+                                    Take a Product
+                                </button>
+                            </div>
+                            <div class="col-span-4 p-4 rounded-lg">
+                                <img src="dashboard.png" alt="dashboard" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-6 mb-6">
+                        <div class="p-4 bg-white rounded-lg shadow flex flex-col items-center justify-center">
+                            <div class="bg-gray-100 p-5 rounded-full mb-3">
+                                <span class="material-icons text-blue-500 text-3xl">attach_money</span>
+                            </div>
+                            <h2 class="text-xl font-semibold text-center">$236.18k</h2>
+                            <p class="text-sm text-gray-500 text-center">Total Revenue</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow flex flex-col items-center justify-center">
+                            <div class="bg-gray-100 p-5 rounded-full mb-3">
+                                <span class="material-icons text-green-500 text-3xl">shopping_cart</span>
+                            </div>
+                            <h2 class="text-xl font-semibold text-center">13,461</h2>
+                            <p class="text-sm text-gray-500 text-center">Total Orders</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow flex flex-col items-center justify-center">
+                            <div class="bg-gray-100 p-5 rounded-full mb-3">
+                                <span class="material-icons text-purple-500 text-3xl">local_shipping</span>
+                            </div>
+                            <h2 class="text-xl font-semibold text-center">17,150</h2>
+                            <p class="text-sm text-gray-500 text-center">Delivered</p>
+                        </div>
+
+                        <div class="p-4 bg-white rounded-lg shadow flex flex-col items-center justify-center">
+                            <div class="bg-gray-100 p-5 rounded-full mb-3">
+                                <span class="material-icons text-red-500 text-3xl">cancel</span>
+                            </div>
+                            <h2 class="text-xl font-semibold text-center">3,519</h2>
+                            <p class="text-sm text-gray-500 text-center">Cancelled</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-4 p-4 my-5 bg-white rounded-lg shadow">
+                    <h2 class="font-bold mb-2">Order Statistics</h2>
+                    <canvas id="orderChart"></canvas>
+                </div>
+            </div>
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>

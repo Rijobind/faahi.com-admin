@@ -1,0 +1,35 @@
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component } from '@angular/core';
+import { Chart } from 'chart.js/auto';
+import { Footer } from "../../components/shared-component/footer/footer";
+import { Header } from "../../components/shared-component/header/header";
+import { SideMenubar } from "../../components/shared-component/side-menubar/side-menubar";
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, Footer, Header, SideMenubar],
+  templateUrl: './home.html',
+  styleUrls: ['./home.css']
+})
+export class Home implements AfterViewInit {
+
+  isSidebarOpen = true;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  ngAfterViewInit() {
+    new Chart("orderChart", {
+      type: 'line',
+      data: {
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        datasets: [
+          { label: "Pending", data: [18, 20, 22, 25, 28, 30, 26, 24, 29, 32, 34, 36], borderColor: "purple" },
+          { label: "New Orders", data: [30, 28, 32, 24, 26, 30, 28, 22, 26, 34, 38, 30], borderColor: "blue" }
+        ]
+      }
+    });
+  }
+}
