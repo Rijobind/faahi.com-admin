@@ -4,11 +4,17 @@ import { Chart } from 'chart.js/auto';
 import { Footer } from "../../components/shared-component/footer/footer";
 import { Header } from "../../components/shared-component/header/header";
 import { SideMenubar } from "../../components/shared-component/side-menubar/side-menubar";
+import { SalesRevenueOverview } from "../../components/shared-component/sales-revenue-overview/sales-revenue-overview";
+import { MonthlyOrderGoal } from "../../components/shared-component/monthly-order-goal/monthly-order-goal";
+import { ProductOrders } from "../../components/shared-component/product-orders/product-orders";
+import { SalesThisMonth } from "../../components/shared-component/sales-this-month/sales-this-month";
+import { CustomerService } from "../../components/shared-component/customer-service/customer-service";
+import { Audience } from "../../components/shared-component/audience/audience";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Footer, Header, SideMenubar],
+  imports: [CommonModule, Footer, Header, SideMenubar, SalesRevenueOverview, MonthlyOrderGoal, ProductOrders, SalesThisMonth, CustomerService, Audience],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
