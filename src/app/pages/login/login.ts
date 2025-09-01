@@ -29,4 +29,8 @@ export class Login {
       this.isSuccess = false;
     }
   }
+
+  onEmailConfirmation() {
+    this.router.navigate(['/email-confirmation'])
+  }
 }
