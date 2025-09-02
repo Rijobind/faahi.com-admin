@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class VerifySuccess {
 
+  constructor(private router: Router) { }
+
+  OnRegister() {
+    this.router.navigate(['/registration'])
+  }
 }
