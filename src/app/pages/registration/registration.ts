@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication/authentication.service';  // ✅ import your service
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-registration',
@@ -12,14 +12,23 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   styleUrls: ['./registration.css']
 })
 export class Registration {
-  name: string = '';
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
+  // Form fields
+  email = '';
+  username = '';
+  password = '';
+  confirmPassword = '';
+  businessName = '';
+  fullName = '';
+  taxId = '';
+  regNumber = '';
+  phone = '';
+  country = '';
 
-  message: string = '';
-  isSuccess: boolean = false;
-  showPassword: boolean = false;
+  // UI state
+  message = '';
+  isSuccess = false;
+  showPassword = false;
+  showConfirmPassword = false;
 
   constructor(
     private router: Router,
@@ -27,30 +36,49 @@ export class Registration {
   ) { }
 
   onRegister() {
+    // Extra validation
+    if (!this.email || !this.username || !this.password || !this.confirmPassword) {
+      this.message = 'Please fill all required fields';
+      this.isSuccess = false;
+      return;
+    }
+
     if (this.password !== this.confirmPassword) {
-      this.message = ' Passwords do not match';
+      this.message = 'Passwords do not match';
       this.isSuccess = false;
       return;
     }
 
     const payload = {
-      name: this.name,
       email: this.email,
-      password: this.password
+      username: this.username,
+      password: this.password,
+      businessName: this.businessName,
+      fullName: this.fullName,
+      taxId: this.taxId,
+      regNumber: this.regNumber,
+      phone: this.phone,
+      country: this.country
     };
 
     this.authService.signUpAccount(payload).subscribe({
       next: () => {
-        this.message = ' Registration Successful!';
+        this.message = 'Registration Successful!';
         this.isSuccess = true;
 
         setTimeout(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         }, 1500);
       },
       error: (err) => {
         console.error(err);
-        this.message = ' Registration Failed. Try again';
+        if (err.error?.output === -1) {
+          this.message = 'Username already exists';
+        } else if (err.error?.output === -2) {
+          this.message = 'Email already registered';
+        } else {
+          this.message = 'Registration Failed. Try again';
+        }
         this.isSuccess = false;
       }
     });

@@ -12,7 +12,6 @@ export class AuthenticationService {
 
     constructor(private http: HttpClient) { }
 
-    // Existing signup
     signUpAccount(postData: any): Observable<any> {
         let headers = new HttpHeaders({
             'accept': 'text/plain',
@@ -20,7 +19,7 @@ export class AuthenticationService {
         });
 
         return this.http.post(
-            this.apiUrl + 'Authentication/create_account',
+            `${this.apiUrl}Cobusiness/create_account`,
             postData,
             { headers }
         ).pipe(
@@ -37,8 +36,25 @@ export class AuthenticationService {
 
         return this.http.post(
             `${this.apiUrl}Authentication/email_verify/${email}`,
-            {},   // empty body
+            {},
             { headers }
+        );
+    }
+
+    postCreatedAccount(postAccount: any): Observable<any> {
+        let headers = new HttpHeaders({
+            'accept': 'text/plain',
+            'Content-Type': 'application/json; charset=UTF-8'
+        });
+
+        return this.http.post(
+            this.apiUrl + 'Cobusiness/create_account',
+            postAccount,
+            { headers }
+        ).pipe(
+            tap(() => {
+                this._refreshNeeded$.next();
+            })
         );
     }
 

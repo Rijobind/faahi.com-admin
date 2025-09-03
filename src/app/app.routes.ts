@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./pages/login/login').then(a => a.Login) },
     { path: 'email-confirmation', loadComponent: () => import('./pages/email-confirmation/email-confirmation').then(a => a.EmailConfirmation) },
-    { path: 'verify-success', loadComponent: () => import('./pages/verify-success/verify-success').then(a => a.VerifySuccess) },
+    { path: 'verify-success/token/:token/email/:email', loadComponent: () => import('./pages/verify-success/verify-success').then(a => a.VerifySuccess) },
     { path: 'registration', loadComponent: () => import('./pages/registration/registration').then(a => a.Registration) },
     { path: 'home', loadComponent: () => import('./pages/home/home').then(a => a.Home) },
     { path: 'header', loadComponent: () => import('./components/shared-component/header/header').then(a => a.Header) },

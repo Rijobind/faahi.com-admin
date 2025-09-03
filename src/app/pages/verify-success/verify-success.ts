@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: 'app-verify-success',
   imports: [],
   templateUrl: './verify-success.html',
-  styleUrl: './verify-success.css'
+  styleUrls: ['./verify-success.css']
 })
 export class VerifySuccess {
 

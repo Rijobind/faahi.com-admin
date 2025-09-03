@@ -20,12 +20,12 @@ export class Login {
 
   onLogin() {
     if (this.email === 'admin@faahi.com' && this.password === '123456') {
-      this.message = '✅ Login Successful!';
+      this.message = ' Login Successful!';
       this.isSuccess = true;
 
       this.router.navigate(['/home']);
     } else {
-      this.message = '❌ Invalid Email or Password';
+      this.message = ' Invalid Email or Password';
       this.isSuccess = false;
     }
   }
