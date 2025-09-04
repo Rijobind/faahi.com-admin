@@ -19,14 +19,13 @@ export class AuthenticationService {
         });
 
         return this.http.post(
-            `${this.apiUrl}Cobusiness/create_account`,
+            `${this.apiUrl}/Cobusiness/create_account`,
             postData,
             { headers }
         ).pipe(
-            tap(() => {
-                this._refreshNeeded$.next();
-            })
+            tap(() => this._refreshNeeded$.next())
         );
+
     }
 
     verifyEmail(email: string): Observable<any> {
@@ -35,26 +34,25 @@ export class AuthenticationService {
         });
 
         return this.http.post(
-            `${this.apiUrl}Authentication/email_verify/${email}`,
+            `${this.apiUrl}/Authentication/email_verify/${email}`,
             {},
             { headers }
         );
+
     }
 
-    postCreatedAccount(postAccount: any): Observable<any> {
+    postLogin(username: string, password: string): Observable<any> {
         let headers = new HttpHeaders({
-            'accept': 'text/plain',
-            'Content-Type': 'application/json; charset=UTF-8'
+            'accept': 'application/json',
+            'Content-Type': 'application/json'
         });
 
+        const body = { username, password }; // 👈 send credentials in body
+
         return this.http.post(
-            this.apiUrl + 'Cobusiness/create_account',
-            postAccount,
+            `${this.apiUrl}/Cobusiness/login`,
+            body,
             { headers }
-        ).pipe(
-            tap(() => {
-                this._refreshNeeded$.next();
-            })
         );
     }
 

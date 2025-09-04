@@ -36,7 +36,6 @@ export class Registration {
   ) { }
 
   onRegister() {
-    // Extra validation
     if (!this.email || !this.username || !this.password || !this.confirmPassword) {
       this.message = 'Please fill all required fields';
       this.isSuccess = false;
@@ -50,16 +49,44 @@ export class Registration {
     }
 
     const payload = {
-      email: this.email,
-      username: this.username,
-      password: this.password,
-      businessName: this.businessName,
-      fullName: this.fullName,
-      taxId: this.taxId,
-      regNumber: this.regNumber,
-      phone: this.phone,
-      country: this.country
+      company_id: null,
+      business_name: this.businessName || null,
+      tin_number: this.taxId || null,
+      name: this.fullName || null,
+      password: this.password || null,
+      reg_no: this.regNumber || null,
+      country: this.country || null,
+      address: null,
+      logo_fileName: null,
+      phoneNumber: this.phone || null,
+      created_at: null,
+      plan_type: null,
+      sites_allowed: null,
+      createdSites: null,
+      edit_date_time: null,
+      edit_user_id: null,
+      email: this.email || null,
+      co_addresses: [
+        {
+          company_address_id: null,
+          company_id: null,
+          street_1: null,
+          street_2: null,
+          city: null,
+          state: null,
+          postal_code: null,
+          country: this.country || null,
+          telephone_1: this.phone || null,
+          telephone_2: null,
+          email: this.email || null,
+          status: "T",
+          edit_date_time: null,
+          edit_user_id: null,
+          contact_person: this.fullName || null
+        }
+      ]
     };
+
 
     this.authService.signUpAccount(payload).subscribe({
       next: () => {
@@ -67,7 +94,7 @@ export class Registration {
         this.isSuccess = true;
 
         setTimeout(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         }, 1500);
       },
       error: (err) => {
