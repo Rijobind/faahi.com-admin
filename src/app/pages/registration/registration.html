@@ -35,7 +35,7 @@
             </g>
         </svg>
     </div>
-    <!-- <div class="mb-0 w-screen lg:mx-auto lg:w-2xl card shadow-lg border-none shadow-slate-100 relative">
+    <div class="mb-0 w-screen lg:mx-auto lg:w-2xl card shadow-lg border-none shadow-slate-100 relative">
         <div class="bg-white shadow-md rounded-xl p-8 max-w-4xl w-full">
             <div class="flex flex-col items-center mb-6">
                 <img src="logo.jpg" alt="logo" class="w-10 h-10" />
@@ -44,7 +44,7 @@
                     Create account to start your journey with <span class="font-bold">Solution.</span>
                 </p>
             </div>
-            <form (ngSubmit)="onRegister()" #registerForm="ngForm" class="space-y-5" novalidate>
+            <form (ngSubmit)="onRegister()" #registerForm="ngForm" novalidate class="space-y-5">
                 <div class="flex gap-5">
                     <div class="relative w-full">
                         <label for="email" class="block text-sm font-medium text-gray-600 mb-1">Email <span
@@ -56,6 +56,7 @@
                             Please enter a valid email.
                         </p>
                     </div>
+
                     <div class="relative w-full">
                         <label for="username" class="block text-sm font-medium text-gray-600 mb-1">User Name <span
                                 class="text-red-500">*</span></label>
@@ -76,22 +77,25 @@
                             [(ngModel)]="password" #passwordCtrl="ngModel"
                             class="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700 pr-10"
                             placeholder="Enter your password" required minlength="8" pattern="^(?=.*[A-Z]).{8,}$" />
-                        <button type="button"
-                            class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-gray-500"
-                            (click)="showPassword = !showPassword">
-                            <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M2.036 12.322a1.012 1.012 0 010-.644C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.01 9.964 7.178.07.207.07.435 0 .643C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.01-9.964-7.178z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <button type="button" (click)="showPassword = !showPassword"
+                            class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-gray-500">
+                            <svg *ngIf="!showPassword" class="shrink-0 size-4 mt-6" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68">
+                                </path>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                <line x1="2" x2="22" y1="2" y2="22"></line>
                             </svg>
-                            <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.86-.395M6.228 6.228A10.451 10.451 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.5a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65" />
+                            <svg *ngIf="showPassword" class="shrink-0 size-4 mt-6" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
                             </svg>
                         </button>
+
                         <p *ngIf="passwordCtrl.invalid && passwordCtrl.touched" class="text-red-500 text-xs mt-1">
                             Must contain uppercase & 8+ length.
                         </p>
@@ -104,20 +108,22 @@
                             name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordCtrl="ngModel"
                             class="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700 pr-10"
                             placeholder="Confirm password" required />
-                        <button type="button"
-                            class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-gray-500"
-                            (click)="showConfirmPassword = !showConfirmPassword">
-                            <svg *ngIf="showConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M2.036 12.322a1.012 1.012 0 010-.644C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.01 9.964 7.178.07.207.07.435 0 .643C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.01-9.964-7.178z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <button type="button" (click)="showConfirmPassword = !showConfirmPassword"
+                            class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-gray-500">
+                            <svg *ngIf="!showConfirmPassword" class="shrink-0 size-4 mt-6" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68">
+                                </path>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                <line x1="2" x2="22" y1="2" y2="22"></line>
                             </svg>
-                            <svg *ngIf="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.86-.395M6.228 6.228A10.451 10.451 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.5a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65" />
+                            <svg *ngIf="showConfirmPassword" class="shrink-0 size-4 mt-6" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
                             </svg>
                         </button>
                         <p *ngIf="password !== confirmPassword && confirmPasswordCtrl.touched"
@@ -126,162 +132,6 @@
                         </p>
                     </div>
                 </div>
-                <div class="flex gap-5">
-                    <div class="relative w-full">
-                        <label for="businessName" class="block text-sm font-medium text-gray-600 mb-1">Business Name
-                            <span class="text-red-500">*</span></label>
-                        <input type="text" id="businessName" name="businessName" [(ngModel)]="businessName"
-                            #businessNameCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="Your business name" required />
-                        <p *ngIf="businessNameCtrl.invalid && businessNameCtrl.touched"
-                            class="text-red-500 text-xs mt-1">
-                            Business Name is required.
-                        </p>
-                    </div>
-
-                    <div class="relative w-full">
-                        <label for="fullName" class="block text-sm font-medium text-gray-600 mb-1">Your Name <span
-                                class="text-red-500">*</span></label>
-                        <input type="text" id="fullName" name="fullName" [(ngModel)]="fullName" #fullNameCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="Your full name" required />
-                        <p *ngIf="fullNameCtrl.invalid && fullNameCtrl.touched" class="text-red-500 text-xs mt-1">
-                            Name is required.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex gap-5">
-                    <div class="relative w-full">
-                        <label for="taxId" class="block text-sm font-medium text-gray-600 mb-1">Tax Identification
-                            Number <span class="text-red-500">*</span></label>
-                        <input type="text" id="taxId" name="taxId" [(ngModel)]="taxId" #taxIdCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="TIN" required />
-                    </div>
-
-                    <div class="relative w-full">
-                        <label for="regNumber" class="block text-sm font-medium text-gray-600 mb-1">Registration Number
-                            <span class="text-red-500">*</span></label>
-                        <input type="text" id="regNumber" name="regNumber" [(ngModel)]="regNumber"
-                            #regNumberCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="Business Reg. Number" required />
-                    </div>
-                </div>
-
-                <div class="flex gap-5">
-                    <div class="relative w-full">
-                        <label for="phone" class="block text-sm font-medium text-gray-600 mb-1">Business Phone Number
-                            <span class="text-red-500">*</span></label>
-                        <input type="tel" id="phone" name="phone" [(ngModel)]="phone" #phoneCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="+91-9999999999" required pattern="^[0-9]{7,15}$" />
-                    </div>
-
-                    <div class="relative w-full">
-                        <label for="country" class="block text-sm font-medium text-gray-600 mb-1">Business Country <span
-                                class="text-red-500">*</span></label>
-                        <input type="text" id="country" name="country" [(ngModel)]="country" #countryCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="Country" required />
-                    </div>
-                </div>
-                <button type="submit"
-                    class="w-full cursor-pointer py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg shadow-md transition flex items-center justify-center">
-                    Register
-                </button>
-
-            </form>
-            <p *ngIf="message" class="mt-4 text-center text-sm font-semibold"
-                [ngClass]="{ 'text-green-600': isSuccess, 'text-red-600': !isSuccess }">
-                {{ message }}
-            </p>
-            <p class="mt-6 text-center text-sm text-gray-600">
-                Already have an account?
-                <a (click)="gotoLogin()" class="text-indigo-600 font-semibold cursor-pointer hover:underline">Login
-                    here</a>
-            </p>
-        </div>
-    </div> -->
-    <div class="mb-0 w-screen lg:mx-auto lg:w-2xl card shadow-lg border-none shadow-slate-100 relative">
-        <div class="bg-white shadow-md rounded-xl p-8 max-w-4xl w-full">
-            <div class="flex flex-col items-center mb-6">
-                <img src="logo.jpg" alt="logo" class="w-10 h-10" />
-                <h1 class="text-xl font-bold text-blue-500">Sign Up for Business Solution</h1>
-                <p class="text-gray-400 mt-2 font-semibold text-sm">
-                    Create account to start your journey with <span class="font-bold">Solution.</span>
-                </p>
-            </div>
-
-            <!-- FORM START -->
-            <form (ngSubmit)="onRegister()" #registerForm="ngForm" novalidate class="space-y-5">
-
-                <!-- Email & Username -->
-                <div class="flex gap-5">
-                    <div class="relative w-full">
-                        <label for="email" class="block text-sm font-medium text-gray-600 mb-1">Email <span
-                                class="text-red-500">*</span></label>
-                        <input type="email" id="email" name="email" [(ngModel)]="email" #emailCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="your@email.com" required email />
-                        <p *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-red-500 text-xs mt-1">
-                            Please enter a valid email.
-                        </p>
-                    </div>
-
-                    <div class="relative w-full">
-                        <label for="username" class="block text-sm font-medium text-gray-600 mb-1">User Name <span
-                                class="text-red-500">*</span></label>
-                        <input type="text" id="username" name="username" [(ngModel)]="username" #usernameCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                            placeholder="Enter your full name" required minlength="3" />
-                        <p *ngIf="usernameCtrl.invalid && usernameCtrl.touched" class="text-red-500 text-xs mt-1">
-                            Username is required (min 3 chars).
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Password & Confirm Password -->
-                <div class="flex gap-5">
-                    <div class="relative w-full">
-                        <label for="password" class="block text-sm font-medium text-gray-600 mb-1">Password <span
-                                class="text-red-500">*</span></label>
-                        <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
-                            [(ngModel)]="password" #passwordCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700 pr-10"
-                            placeholder="Enter your password" required minlength="8" pattern="^(?=.*[A-Z]).{8,}$" />
-                        <button type="button"
-                            class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-gray-500"
-                            (click)="showPassword = !showPassword">
-                            👁
-                        </button>
-                        <p *ngIf="passwordCtrl.invalid && passwordCtrl.touched" class="text-red-500 text-xs mt-1">
-                            Must contain uppercase & 8+ length.
-                        </p>
-                    </div>
-
-                    <div class="relative w-full">
-                        <label for="confirmPassword" class="block text-sm font-medium text-gray-600 mb-1">Confirm
-                            Password <span class="text-red-500">*</span></label>
-                        <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
-                            name="confirmPassword" [(ngModel)]="confirmPassword" #confirmPasswordCtrl="ngModel"
-                            class="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700 pr-10"
-                            placeholder="Confirm password" required />
-                        <button type="button"
-                            class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-gray-500"
-                            (click)="showConfirmPassword = !showConfirmPassword">
-                            👁
-                        </button>
-                        <p *ngIf="password !== confirmPassword && confirmPasswordCtrl.touched"
-                            class="text-red-500 text-xs mt-1">
-                            Passwords do not match.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Business & Full Name -->
                 <div class="flex gap-5">
                     <div class="relative w-full">
                         <label for="businessName" class="block text-sm font-medium text-gray-600 mb-1">Business Name
@@ -300,8 +150,6 @@
                             placeholder="Your full name" required />
                     </div>
                 </div>
-
-                <!-- Tax ID & Registration -->
                 <div class="flex gap-5">
                     <div class="relative w-full">
                         <label for="taxId" class="block text-sm font-medium text-gray-600 mb-1">Tax Identification
@@ -320,8 +168,6 @@
                             placeholder="Business Reg. Number" required />
                     </div>
                 </div>
-
-                <!-- Phone & Country -->
                 <div class="flex gap-5">
                     <div class="relative w-full">
                         <label for="phone" class="block text-sm font-medium text-gray-600 mb-1">Business Phone Number
@@ -330,7 +176,6 @@
                             class="w-full px-4 py-2 mt-1 border text-sm border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
                             placeholder="+91-9999999999" required pattern="^[0-9]{7,15}$" />
                     </div>
-
                     <div class="relative w-full">
                         <label for="country" class="block text-sm font-medium text-gray-600 mb-1">Business Country <span
                                 class="text-red-500">*</span></label>
@@ -339,15 +184,25 @@
                             placeholder="Country" required />
                     </div>
                 </div>
-
-                <!-- Register Button -->
-                <button type="submit"
+                <!-- <button type="submit"
                     class="w-full cursor-pointer py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg shadow-md transition flex items-center justify-center">
                     Register
+                </button> -->
+                <button type="submit" [disabled]="isLoading"
+                    class="w-full cursor-pointer py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg shadow-md transition flex items-center justify-center">
+                    <span *ngIf="!isLoading">Register</span>
+                    <span *ngIf="isLoading" class="flex items-center">
+                        <svg class="animate-spin h-4 w-4 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                        </svg>
+                        Registering...
+                    </span>
                 </button>
-            </form>
-            <!-- FORM END -->
 
+            </form>
             <p *ngIf="message" class="mt-4 text-center text-sm font-semibold"
                 [ngClass]="{ 'text-green-600': isSuccess, 'text-red-600': !isSuccess }">
                 {{ message }}

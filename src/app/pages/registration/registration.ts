@@ -7,7 +7,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './registration.html',
   styleUrls: ['./registration.css']
 })
@@ -29,6 +29,7 @@ export class Registration {
   isSuccess = false;
   showPassword = false;
   showConfirmPassword = false;
+  isLoading: boolean = false;
 
   constructor(
     private router: Router,
@@ -47,6 +48,8 @@ export class Registration {
       this.isSuccess = false;
       return;
     }
+
+    this.isLoading = true;
 
     const payload = {
       company_id: null,
@@ -98,6 +101,7 @@ export class Registration {
         }, 1500);
       },
       error: (err) => {
+        this.isLoading = false;
         console.error(err);
         if (err.error?.output === -1) {
           this.message = 'Username already exists';

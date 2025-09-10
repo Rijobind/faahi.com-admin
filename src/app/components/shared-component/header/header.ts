@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { AuthenticationService } from '../../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,9 @@ export class Header {
   activeDropdown: string | null = null;
   activeSlider: string | null = null;
   @Output() toggleSidebarEvent = new EventEmitter<void>();
+
+
+  constructor(private authService: AuthenticationService) { }
 
   toggleSidebar() {
     this.toggleSidebarEvent.emit();
@@ -67,5 +71,9 @@ export class Header {
 
   getTotal() {
     return this.getSubTotal() - this.discount + this.shipping + this.getTax();
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

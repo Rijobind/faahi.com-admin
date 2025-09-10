@@ -6,7 +6,7 @@ export const routes: Routes = [
     { path: 'verify-success/token/:token/email/:email', loadComponent: () => import('./pages/verify-success/verify-success').then(a => a.VerifySuccess) },
     { path: 'registration', loadComponent: () => import('./pages/registration/registration').then(a => a.Registration) },
     { path: 'forgot-password', loadComponent: () => import('./pages/forgot-password/forgot-password').then(a => a.ForgotPassword) },
-    { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password').then(a => a.ResetPassword) },
+    { path: 'reset-password/token/:token/email/:email', loadComponent: () => import('./pages/reset-password/reset-password').then(a => a.ResetPassword) },
     { path: 'home', loadComponent: () => import('./pages/home/home').then(a => a.Home) },
     { path: 'header', loadComponent: () => import('./components/shared-component/header/header').then(a => a.Header) },
     { path: 'footer', loadComponent: () => import('./components/shared-component/footer/footer').then(a => a.Footer) },

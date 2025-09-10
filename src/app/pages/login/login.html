@@ -43,53 +43,67 @@
                 <h1 class="text-xl font-bold text-blue-500">Welcome Back !</h1>
                 <p class="text-gray-400 mt-2 font-semibold text-sm">Sign in to continue to Faahi Admin.</p>
             </div>
-            <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="space-y-5">
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-600 mb-1">UserName / Email ID</label>
-                    <input type="email" id="email" name="email" [(ngModel)]="email"
-                        class="w-full px-4 py-1.5 mt-2 border bg-3B82F6 border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700"
-                        placeholder="your@email.com" required />
+            <div *ngIf="errorMessage" class="bg-red-100 text-red-600 p-3 rounded-md mb-4 text-sm text-center">
+                {{ errorMessage }}
+            </div>
+            <form autocomplete="off" (ngSubmit)="onLogin()" #loginForm="ngForm" class="space-y-5">
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
+                    <input type="email" id="email" name="email" [(ngModel)]="email" #emailCtrl="ngModel" required
+                        class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:border-blue-400" />
+                    <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="text-red-500 text-xs mt-1">
+                        <span *ngIf="emailCtrl.errors?.['required']">Email is required.</span>
+                        <span *ngIf="emailCtrl.errors?.['email']">Please enter a valid email.</span>
+                    </div>
                 </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-600 mb-1">Password</label>
-                    <div class="relative">
-                        <input id="hs-toggle-password" name="password" [(ngModel)]="password" type="password"
-                            class="w-full px-4 py-1.5 border mt-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-gray-700 pe-10"
-                            placeholder="Enter your password" required />
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
 
+                    <div class="relative">
+                        <input [type]="showPassword ? 'text' : 'password'" id="hs-toggle-password" name="password"
+                            [(ngModel)]="password" #passwordCtrl="ngModel" required minlength="6"
+                            class="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:border-blue-400 pr-10" />
                         <button type="button" (click)="togglePassword()"
-                            class="absolute inset-y-0 end-0 flex items-center z-20 mt-2 px-3 cursor-pointer text-gray-400 rounded-e-md focus:outline-hidden focus:text-blue-600">
-                            <svg *ngIf="!showPassword" class="shrink-0 size-4" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
+                            class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-blue-600 focus:outline-none">
+                            <svg *ngIf="!showPassword" class="w-4 h-4 mt-1" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
                                 <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68">
                                 </path>
-                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61">
+                                </path>
                                 <line x1="2" x2="22" y1="2" y2="22"></line>
                             </svg>
-                            <svg *ngIf="showPassword" class="shrink-0 size-4" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
+                            <svg *ngIf="showPassword" class="w-4 h-4 mt-1" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
                                 <circle cx="12" cy="12" r="3"></circle>
                             </svg>
                         </button>
                     </div>
+                    <div *ngIf="passwordCtrl.invalid && passwordCtrl.touched" class="text-red-500 text-xs mt-1">
+                        <span *ngIf="passwordCtrl.errors?.['required']">Password is required.</span>
+                        <span *ngIf="passwordCtrl.errors?.['minlength']">Password must be at least 6 characters.</span>
+                    </div>
                 </div>
+                <p class="text-red-500 text-xs">{{message}}</p>
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <input type="checkbox" id="remember"
+                        <!-- <input type="checkbox" id="remember"
+                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                        <label for="remember" class="ml-2 text-sm text-gray-700">Remember me</label> -->
+                        <input type="checkbox" id="remember" [(ngModel)]="rememberMe" name="rememberMe"
                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                         <label for="remember" class="ml-2 text-sm text-gray-700">Remember me</label>
+
                     </div>
                     <a (click)="onforgotPassword()"
                         class="text-sm text-indigo-500 hover:underline cursor-pointer">Forgot
                         password?</a>
                 </div>
-                <button type="submit"
+                <button type="submit" [disabled]="loginForm.invalid || isLoading"
                     class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded-lg shadow-md transition">
-                    Sign In
+                    {{ isLoading ? 'Signing In...' : 'Sign In' }}
                 </button>
             </form>
             <div class="mt-6">
@@ -120,5 +134,4 @@
             </p>
         </div>
     </div>
-
 </div>
