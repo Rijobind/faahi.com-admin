@@ -27,10 +27,11 @@ export class ResetPassword implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.token = params.get('token') || '';
-      this.email = params.get('email') || '';
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.token = params['token'];
+      this.email = params['email'];
+      console.log('token:', this.token, 'email:', this.email);
     });
   }
 

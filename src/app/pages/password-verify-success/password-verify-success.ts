@@ -1,17 +1,16 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-verify-success',
+  selector: 'app-password-verify-success',
   imports: [CommonModule],
-  templateUrl: './verify-success.html',
-  styleUrls: ['./verify-success.css']
+  templateUrl: './password-verify-success.html',
+  styleUrl: './password-verify-success.css'
 })
-export class VerifySuccess implements OnInit {
-
+export class PasswordVerifySuccess {
   message: string = '';
   isLoading: boolean = true;
 
@@ -20,8 +19,8 @@ export class VerifySuccess implements OnInit {
   buttonAction: () => void = () => { };
   messageColor: string = 'text-gray-500';
 
-  private token: string = '';
-  private email: string = '';
+  token: string = '';
+  email: string = '';
 
   constructor(
     private router: Router,
@@ -31,8 +30,10 @@ export class VerifySuccess implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
+      console.log("Query Params on load:", params);
       this.token = params['token'];
       this.email = params['email'];
+
 
       if (this.token && this.email) {
         this.verifyEmail(this.email, this.token);
@@ -46,27 +47,35 @@ export class VerifySuccess implements OnInit {
   }
 
   verifyEmail(email: string, token: string) {
-    this.authService.verifyEmailToken(email, token).subscribe({
+    this.authService.verifyPasswordToken(email, token).subscribe({
       next: (res: any) => {
         this.isLoading = false;
         const msg = res.message?.trim() || '';
         this.message = msg;
+        console.log("Navigating with token:", this.token, "email:", this.email);
         const messageMap: Record<string, { color: string, label?: string, action?: () => void }> = {
+
           'email verified successfully': {
             color: 'text-blue-500',
             label: 'Continue Setup',
-            action: () => this.router.navigate(['/registration'])
+            action: () => this.router.navigate(
+
+              ['/reset-password'],
+              { queryParams: { token: this.token, email: this.email } }
+            )
           },
           'you have already verifyed': {
             color: 'text-green-500',
             label: 'Go to Registration',
-            action: () => this.router.navigate(['/registration'])
+            action: () => this.router.navigate(['/reset-password'],
+              { queryParams: { token: this.token, email: this.email } }
+            )
           },
           'invalid or expired token': {
             color: 'text-red-500',
             label: 'Resend Verification Email',
             action: () => this.router.navigate(
-              ['/email-confirmation'],
+              ['/forgot-password'],
               { queryParams: { resend: true, email: this.email } }
             )
           },

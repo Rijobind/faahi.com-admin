@@ -37,12 +37,28 @@ export class AuthenticationService {
             { headers }
         );
     }
+    verifyPasswordToken(email: string, token: string): Observable<any> {
+        let headers = new HttpHeaders({ 'accept': 'application/json' });
+
+        return this.http.post(
+            `${this.apiUrl}/Cobusiness/verify/${email}/${token}`,
+            {},
+            { headers }
+        );
+    }
 
     resendEmailToken(email: string): Observable<any> {
         return this.http.post(
             `${this.apiUrl}/Authentication/resend_verification/${email}`,
             {},
         );
+    }
+
+    resendEmailForPassword(email: string): Observable<any> {
+        return this.http.post(
+            `${this.apiUrl}/Cobusiness/send_reset_password/${email}`,
+            {},
+        )
     }
 
     verifyEmail(email: string): Observable<any> {
@@ -81,12 +97,12 @@ export class AuthenticationService {
     }
 
     resetPassword(token: string, email: string, password: string) {
+        debugger
         const headers = new HttpHeaders({
             'accept': 'application/json',
-            'Authorization': `Bearer ${token}`
         });
         return this.http.post(
-            `${this.apiUrl}/Cobusiness/reset_password/${encodeURIComponent(email)}/${encodeURIComponent(password)}`,
+            `${this.apiUrl}/Cobusiness/reset_password/${encodeURIComponent(token)}/${encodeURIComponent(email)}/${encodeURIComponent(password)}`,
             {},
             { headers }
         );
