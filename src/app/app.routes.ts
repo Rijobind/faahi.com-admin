@@ -19,4 +19,5 @@ export const routes: Routes = [
     { path: 'sales-this-month', loadComponent: () => import('./components/shared-component/sales-this-month/sales-this-month').then(a => a.SalesThisMonth) },
     { path: 'top-selling-products', loadComponent: () => import('./components/shared-component/top-selling-products/top-selling-products').then(a => a.TopSellingProducts) },
     { path: 'audience', loadComponent: () => import('./components/shared-component/audience/audience').then(a => a.Audience) },
+    { path: 'customer-list', loadComponent: () => import('./pages/customer/customer-list/customer-list').then(a => a.CustomerList) },
 ];
