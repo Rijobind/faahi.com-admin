@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-email-confirmation',
@@ -23,7 +23,7 @@ export class EmailConfirmation implements OnInit {
   prefilledToken: string = '';
 
 
-  constructor(private fb: FormBuilder, private authService: AuthenticationService, private route: ActivatedRoute) { }
+  constructor(private fb: FormBuilder, private authService: AuthenticationService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.emailForm = this.fb.group({
@@ -89,4 +89,7 @@ export class EmailConfirmation implements OnInit {
     this.popupType = null;
   }
 
+  onLogin() {
+    this.router.navigate(['/login'])
+  }
 }

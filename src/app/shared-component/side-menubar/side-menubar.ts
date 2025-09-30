@@ -22,4 +22,13 @@ export class SideMenubar {
   navigateToMainLayout() {
     this.router.navigate(['/main-layout']);
   }
+  onProducts() {
+    this.router.navigate(['/products'])
+  }
+  onHome() {
+    this.router.navigate(['/home'])
+  }
+  onIamSite() {
+    this.router.navigate(['/iam-site'])
+  }
 }

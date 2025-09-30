@@ -1,0 +1,156 @@
+<div class="flex min-h-screen bg-gray-100 font-sans">
+    <aside class="w-64 fixed top-0 left-0 h-full bg-white shadow-md z-40">
+        <app-side-menubar></app-side-menubar>
+    </aside>
+
+    <div class="flex-1 flex flex-col ml-64 min-h-screen">
+        <div class="fixed top-0 left-64 right-0 bg-white shadow z-30">
+            <app-header></app-header>
+        </div>
+
+        <div class="flex-1 mt-16">
+            <div class="px-4 mb-24 mx-auto">
+                <h1 class="text-md p-4 font-semibold">Create I'am Site</h1>
+                <div class="bg-white mb-6 rounded-2xl shadow-xl p-10 space-y-8">
+
+                    <form (ngSubmit)="submitForm()" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Currency</label>
+                            <select [(ngModel)]="selectedCurrency" (ngModelChange)="onCurrencySelect($event)"
+                                name="currency"
+                                class="py-2 px-3 w-full border border-gray-300 text-gray-700 rounded text-sm focus:outline-none focus:border-blue-400">
+                                <option *ngFor="let item of currencies" [ngValue]="item">
+                                    {{item.currency_code}}
+                                </option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Country ID</label>
+                            <input type="text" [(ngModel)]="formData.avl_countries_id" name="country_id" readonly
+                                class="py-2 px-3 w-full border border-gray-300 text-gray-700 rounded text-sm bg-gray-100 focus:outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Company ID</label>
+                            <input type="text" [(ngModel)]="formData.company_id" name="edit_user_id" readonly
+                                class="py-2 px-3 w-full border border-gray-300 text-gray-700 rounded text-sm bg-gray-100 focus:outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Site Name</label>
+                            <input type="text" [(ngModel)]="formData.site_name" name="site_name"
+                                placeholder="Enter Site Name"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Bin Number</label>
+                            <input type="text" [(ngModel)]="formData.im_item_site[0].bin_number" name="bin_number"
+                                placeholder="Enter Bin Number"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Primary Vendor ID</label>
+                            <input type="text" [(ngModel)]="formData.im_item_site[0].primary_vendor_id"
+                                name="primary_vendor_id" placeholder="Enter Vendor ID"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">On Hand Quantity</label>
+                            <input type="number" [(ngModel)]="formData.im_item_site[0].on_hand_quantity"
+                                name="on_hand_quantity" placeholder="Enter On Hand Quantity"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Committed Quantity</label>
+                            <input type="number" [(ngModel)]="formData.im_item_site[0].committed_quantity"
+                                name="committed_quantity" placeholder="Enter Committed Quantity"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Purchase Order
+                                Quantity</label>
+                            <input type="number" [(ngModel)]="formData.im_item_site[0].purchase_order_quantity"
+                                name="purchase_order_quantity" placeholder="Enter PO Quantity"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Sales Order Quantity</label>
+                            <input type="number" [(ngModel)]="formData.im_item_site[0].sales_order_quantity"
+                                name="sales_order_quantity" placeholder="Enter SO Quantity"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Cost Price</label>
+                            <input type="number" [(ngModel)]="formData.im_item_site[0].c_price" name="c_price"
+                                placeholder="Enter Cost Price"
+                                class="py-2 px-3 w-full text-xs border border-gray-300 text-gray-700 rounded focus:outline-none focus:border-blue-400 mb-1 placeholder-gray-400" />
+                        </div>
+                        <div class="flex space-x-20">
+                            <!-- Status Toggle -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-600 mb-2">Status</label>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" [(ngModel)]="statusChecked"
+                                        (ngModelChange)="updateStatus($event)" name="status" class="peer sr-only" />
+                                    <div
+                                        class="h-5 w-11 mt-2 bg-gray-200 rounded-full border border-gray-300 peer-checked:bg-green-400 relative after:content-[''] after:absolute after:top-[-2px] after:left-0 after:h-5 after:w-5 after:bg-white after:border after:border-gray-300 after:rounded-full after:transition-all peer-checked:after:translate-x-full">
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- On Hold Toggle -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-600 mb-2">On Hold</label>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" [(ngModel)]="onHoldChecked"
+                                        (ngModelChange)="updateOnHold($event)" name="on_hold" class="peer sr-only" />
+                                    <div
+                                        class="h-5 w-11 mt-2 bg-gray-200 rounded-full border border-gray-300 peer-checked:bg-green-400 relative after:content-[''] after:absolute after:top-[-2px] after:left-0 after:h-5 after:w-5 after:bg-white after:border after:border-gray-300 after:rounded-full after:transition-all peer-checked:after:translate-x-full">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 flex justify-end mt-4">
+                            <button type="submit"
+                                class="px-3 py-2 text-sm bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="fixed bottom-0 left-64 right-0 bg-white shadow z-30">
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>
+<!-- Popup Modal -->
+<div *ngIf="popupMessage" class="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
+    <div class="p-6 rounded-xl shadow-lg max-w-sm w-full relative" [ngClass]="popupType === 'success' 
+                   ? 'bg-green-50 border border-green-300 text-green-800' 
+                   : 'bg-red-50 border border-red-300 text-red-800'">
+        <div class="flex items-center mb-2">
+            <svg *ngIf="popupType === 'success'" class="w-5 h-5 mr-2 text-green-600" fill="currentColor"
+                viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9 14l-4-4 1.5-1.5L9 11l4.5-4.5L15 8l-6 6Z" />
+            </svg>
+            <svg *ngIf="popupType === 'error'" class="w-5 h-5 mr-2 text-red-600" fill="currentColor"
+                viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-1-5h2v2H9v-2Zm0-6h2v4H9V7Z"
+                    clip-rule="evenodd" />
+            </svg>
+            <h3 class="text-lg font-semibold">
+                {{ popupType === 'success' ? 'Success' : 'Error' }}
+            </h3>
+        </div>
+        <p class="text-sm mb-4">{{ popupMessage }}</p>
+        <div class="flex justify-end">
+            <button (click)="closePopup()" class="px-4 py-1.5 rounded-lg text-white text-sm shadow transition"
+                [ngClass]="popupType === 'success' 
+                          ? 'bg-green-600 hover:bg-green-700' 
+                          : 'bg-red-600 hover:bg-red-700'">
+                Close
+            </button>
+        </div>
+    </div>
+</div>

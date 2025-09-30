@@ -1,6 +1,6 @@
-<aside class="w-64 px-3 bg-white shadow-md min-h-screen">
-    <div class="p-4 font-bold text-xl justify-center flex">
-        <img src="logo.jpg" alt="logo" class="w-10 h-10" />Faahi.com
+<aside class="w-64 px-3 bg-white ">
+    <div (click)="onHome()" class="p-4 font-bold cursor-pointer text-xl justify-center flex">
+        <img src="logo.jpg" alt="logo" class="w-10  h-10" />Faahi.com
     </div>
     <div class="ml-4 text-xs font-bold text-gray-400" *ngIf="isSidebarOpen">Menu</div>
     <nav class="mt-2">
@@ -139,7 +139,8 @@
                     </svg>
                 </div>
                 <ul *ngIf="openDropdown === 'Product' && isSidebarOpen" class="pl-8 rounded-sm bg-gray-100 text-sm">
-                    <li class="py-2 hover:text-blue-600 font-semibold text-sm cursor-pointer text-gray-400">Product List
+                    <li (click)="onProducts()"
+                        class="py-2 hover:text-blue-600 font-semibold text-sm cursor-pointer text-gray-400">Product List
                     </li>
                     <li class="py-2 hover:text-blue-600 font-semibold text-sm cursor-pointer text-gray-400">Category
                         List</li>
@@ -170,6 +171,32 @@
                         Purchase</li>
                 </ul>
             </li>
+            <li class="mb-3">
+                <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-200 
+        rounded-sm font-semibold text-sm hover:text-blue-600 cursor-pointer text-gray-400"
+                    (click)="toggleDropdown('Site')">
+                    <div class="flex items-center gap-2">
+                        <!-- Home Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 9.75L12 3l9 6.75v9.75a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 19.5V9.75z" />
+                        </svg>
+                        <span *ngIf="isSidebarOpen">Site</span>
+                    </div>
+                    <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="openDropdown === 'Site'"
+                        fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+                <ul *ngIf="openDropdown === 'Site' && isSidebarOpen" class="pl-8 rounded-sm bg-gray-100 text-sm">
+                    <li (click)="onIamSite()"
+                        class="py-2 hover:text-blue-600 font-semibold text-sm cursor-pointer text-gray-400">
+                        Manage Iam Site
+                    </li>
+                </ul>
+            </li>
+
             <li class="mb-3">
                 <div class="flex items-center justify-between px-4 py-2 hover:bg-gray-200 
                     rounded-sm font-semibold text-sm hover:text-blue-600 cursor-pointer text-gray-400"

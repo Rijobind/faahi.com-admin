@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
-import { Footer } from "../../components/shared-component/footer/footer";
-import { Header } from "../../components/shared-component/header/header";
-import { SideMenubar } from "../../components/shared-component/side-menubar/side-menubar";
-import { SalesRevenueOverview } from "../../components/shared-component/sales-revenue-overview/sales-revenue-overview";
-import { MonthlyOrderGoal } from "../../components/shared-component/monthly-order-goal/monthly-order-goal";
-import { ProductOrders } from "../../components/shared-component/product-orders/product-orders";
-import { SalesThisMonth } from "../../components/shared-component/sales-this-month/sales-this-month";
-import { CustomerService } from "../../components/shared-component/customer-service/customer-service";
-import { Audience } from "../../components/shared-component/audience/audience";
+import { SideMenubar } from "../../shared-component/side-menubar/side-menubar";
+import { Header } from "../../shared-component/header/header";
+import { SalesRevenueOverview } from "../../shared-component/sales-revenue-overview/sales-revenue-overview";
+import { MonthlyOrderGoal } from "../../shared-component/monthly-order-goal/monthly-order-goal";
+import { ProductOrders } from "../../shared-component/product-orders/product-orders";
+import { CustomerService } from "../../shared-component/customer-service/customer-service";
+import { SalesThisMonth } from "../../shared-component/sales-this-month/sales-this-month";
+import { Audience } from "../../shared-component/audience/audience";
+import { Footer } from "../../shared-component/footer/footer";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, Footer, Header, SideMenubar, SalesRevenueOverview, MonthlyOrderGoal, ProductOrders, SalesThisMonth, CustomerService, Audience],
+  imports: [CommonModule, SideMenubar, Header, SalesRevenueOverview, MonthlyOrderGoal, ProductOrders, CustomerService, SalesThisMonth, Audience, Footer],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })

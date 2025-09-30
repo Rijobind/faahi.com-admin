@@ -31,7 +31,7 @@ export class Login {
 
     if (!this.email || !this.password) {
       this.errorMessage = "Please fill in all fields.";
-      this.isLoading = false; // fix stuck loading
+      this.isLoading = false;
       return;
     }
 
@@ -40,24 +40,45 @@ export class Login {
         this.isLoading = false;
 
         if (res.status === 1 && res.token) {
+          const payload = JSON.parse(atob(res.token.accessToken.split('.')[1]));
+          const companyId = payload.company_id;
+
+          localStorage.setItem('company_id', companyId);
           console.log("✅ Login successful:", res);
 
           this.message = 'Login Successful!';
           this.isSuccess = true;
 
-          // Save token depending on RememberMe
           if (this.rememberMe) {
-            console.log("Remember Me:", this.rememberMe);
-            localStorage.setItem('token', res.token);
+            localStorage.setItem('accessToken', res.token.accessToken);
+            localStorage.setItem('refreshToken', res.token.refreshToken);
             localStorage.setItem('user', JSON.stringify(res));
           } else {
-            sessionStorage.setItem('token', res.token);
+            sessionStorage.setItem('accessToken', res.token.accessToken);
+            sessionStorage.setItem('refreshToken', res.token.refreshToken);
             sessionStorage.setItem('user', JSON.stringify(res));
           }
 
+          // ✅ Token is now saved, so it's safe to log it
+          const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+
+          console.log('accessToken:', accessToken);
+
+          // 🔑 Decode token to extract company_id
+          if (accessToken) {
+            const payload = JSON.parse(atob(accessToken.split('.')[1]));
+            console.log('Decoded payload:', payload);
+
+            // Use the nameidentifier claim as company/user ID
+            const companyId = payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+            console.log('🏢 Company ID:', companyId);
+
+            // Save it if needed
+            localStorage.setItem('company_id', companyId);
+          }
+
           this.router.navigate(['/home']);
-        }
-        else {
+        } else {
           console.log("❌ Login failed:", res.message);
           this.message = res.message || 'Invalid Email or Password';
           this.isSuccess = false;
@@ -70,6 +91,7 @@ export class Login {
       }
     });
   }
+
 
 
   togglePassword() {
