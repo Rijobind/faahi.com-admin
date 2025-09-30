@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Footer } from "../../shared-component/footer/footer";
 import { Header } from "../../shared-component/header/header";
 import { SideMenubar } from "../../shared-component/side-menubar/side-menubar";
@@ -16,15 +16,11 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 })
 export class IamSite implements OnInit {
 
-  dropdownOpen: boolean = false;
-  countries: any[] = [];
   currencies: any[] = [];
   selectedCurrency: any = null;
   statusChecked: boolean = true;
   onHoldChecked: boolean = true;
   companyId: string = '';
-  notificationMessage: string = '';
-  showNotification: boolean = false;
   popupMessage: string = '';
   popupType: 'success' | 'error' = 'success';
 
@@ -42,8 +38,8 @@ export class IamSite implements OnInit {
         purchase_order_quantity: 0,
         sales_order_quantity: 0,
         c_price: 0,
-        status: 'T', // toggle active by default
-        on_hold: 'T',  // toggle active by default
+        status: 'T',
+        on_hold: 'T',
       }
     ]
   };
@@ -75,10 +71,7 @@ export class IamSite implements OnInit {
 
   loadCurrencies(): void {
     this.service.getCurrencyList().subscribe({
-      next: (res) => {
-        this.currencies = res.data || [];
-        console.log("list ", this.currencies)
-      },
+      next: (res) => this.currencies = res.data || [],
       error: (err) => console.error("Error fetching currencies:", err)
     });
   }
@@ -86,15 +79,15 @@ export class IamSite implements OnInit {
   onCurrencySelect(selected: any) {
     this.selectedCurrency = selected;
     if (selected) {
-      this.formData.avl_countries_id = selected.avl_countries_id; // update country ID
-      this.formData.currency_code = selected.currency_code;       // update currency code
+      this.formData.avl_countries_id = selected.avl_countries_id;
+      this.formData.currency_code = selected.currency_code;
     }
   }
-
 
   updateStatus(value: boolean) {
     this.formData.im_item_site[0].status = value ? 'T' : 'F';
   }
+
   updateOnHold(value: boolean) {
     this.formData.im_item_site[0].on_hold = value ? 'T' : 'F';
   }
@@ -102,22 +95,16 @@ export class IamSite implements OnInit {
   submitForm(): void {
     console.log("Form Data to Post:", this.formData);
     this.authentication.postIamSite(this.formData).subscribe({
-
       next: () => {
         this.popupMessage = 'Site Created Successfully!';
         this.popupType = 'success';
-
         this.resetForm();
-
-      }
-      ,
+      },
       error: (err) => {
         this.popupMessage = 'Error creating site!';
         this.popupType = 'error';
-
         console.error("Error posting data:", err);
       }
-
     });
   }
 
@@ -130,7 +117,7 @@ export class IamSite implements OnInit {
       site_name: '',
       avl_countries_id: '',
       currency_code: '',
-      company_id: this.companyId, // keep the company ID
+      company_id: this.companyId,
       im_item_site: [
         {
           bin_number: '',
@@ -145,21 +132,8 @@ export class IamSite implements OnInit {
         }
       ]
     };
-
     this.statusChecked = true;
     this.onHoldChecked = true;
     this.selectedCurrency = null;
-  }
-
-  @HostListener('document:click', ['$event'])
-  handleClickOutside(event: Event) {
-    const target = event.target as HTMLElement;
-    const dropdownButton = document.querySelector('button[dropdown-toggle]');
-    const dropdownMenu = document.querySelector('ul[dropdown-menu]');
-    if (this.dropdownOpen &&
-      dropdownButton && !dropdownButton.contains(target) &&
-      dropdownMenu && !dropdownMenu.contains(target)) {
-      this.dropdownOpen = false;
-    }
   }
 }

@@ -55,7 +55,7 @@ export class AuthenticationService {
     }
     verifyPasswordToken(email: string, token: string): Observable<any> {
         return this.http.post(
-            `${this.apiUrl}/Cobusiness/verify/${email}/${token}`,
+            `${this.apiUrl}/Cobusiness/password_verify/${email}/${token}`,
             {},
         );
     }

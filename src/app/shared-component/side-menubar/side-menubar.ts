@@ -31,4 +31,7 @@ export class SideMenubar {
   onIamSite() {
     this.router.navigate(['/iam-site'])
   }
+  onIamSiteList() {
+    this.router.navigate(['/iam-site-list'])
+  }
 }

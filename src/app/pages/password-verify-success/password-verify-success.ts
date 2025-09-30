@@ -52,6 +52,21 @@ export class PasswordVerifySuccess {
         this.isLoading = false;
         const msg = res.message?.trim() || '';
         this.message = msg;
+        if (res.status === -1) {
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 2000);
+        }
+        if (res.status === -2) {
+          setTimeout(() => {
+            this.router.navigate(['/forgot-password']);
+          }, 2000);
+        }
+        if (res.status === -3) {
+          setTimeout(() => {
+            this.router.navigate(['/forgot-password']);
+          }, 2000);
+        }
         console.log("Navigating with token:", this.token, "email:", this.email);
         const messageMap: Record<string, { color: string, label?: string, action?: () => void }> = {
 
@@ -66,7 +81,7 @@ export class PasswordVerifySuccess {
           },
           'you have already verifyed': {
             color: 'text-green-500',
-            label: 'Go to Registration',
+            label: 'Go to Reset Password',
             action: () => this.router.navigate(['/reset-password'],
               { queryParams: { token: this.token, email: this.email } }
             )

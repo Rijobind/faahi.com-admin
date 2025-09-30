@@ -23,4 +23,5 @@ export const routes: Routes = [
     { path: 'products', loadComponent: () => import('./components/products/products').then(a => a.Products) },
     { path: 'create-product', loadComponent: () => import('./components/create-product/create-product').then(a => a.CreateProduct) },
     { path: 'iam-site', loadComponent: () => import('./pages/iam-site/iam-site').then(a => a.IamSite) },
+    { path: 'iam-site-list', loadComponent: () => import('./pages/iam-site-list/iam-site-list').then(a => a.IamSiteList) },
 ];
